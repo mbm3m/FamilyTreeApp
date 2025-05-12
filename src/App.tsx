@@ -99,7 +99,7 @@ function layoutTree(
   let width = 0;
   if (node.children.length > 0) {
     // Recursively layout children
-    const childLayouts = node.children.map((child, i) =>
+    const childLayouts = node.children.map(child =>
       layoutTree(child, 0, y + spacingY, level + 1, spacingX, spacingY)
     );
     // Calculate total width needed for all children (including spacing)
@@ -108,7 +108,7 @@ function layoutTree(
     width = Math.max(totalChildrenWidth + totalSpacing, spacingX);
     // Position children left-to-right
     let currentX = x - width / 2;
-    childLayouts.forEach((childLayout, i) => {
+    childLayouts.forEach(childLayout => {
       childLayout.x = currentX + childLayout.width / 2;
       children.push(childLayout);
       currentX += childLayout.width + spacingX * 0.5;
