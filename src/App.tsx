@@ -92,8 +92,6 @@ function layoutTree(
   x: number,
   y: number,
   level: number,
-  siblingIndex: number,
-  siblingsCount: number,
   spacingX: number,
   spacingY: number
 ): any {
@@ -102,7 +100,7 @@ function layoutTree(
   if (node.children.length > 0) {
     // Recursively layout children
     const childLayouts = node.children.map((child, i) =>
-      layoutTree(child, 0, y + spacingY, level + 1, i, node.children.length, spacingX, spacingY)
+      layoutTree(child, 0, y + spacingY, level + 1, spacingX, spacingY)
     );
     // Calculate total width needed for all children (including spacing)
     const totalChildrenWidth = childLayouts.reduce((sum, c) => sum + c.width, 0);
@@ -310,7 +308,7 @@ function App() {
   let viewBox = `0 0 ${svgWidth} ${svgHeight}`
   let treeLayout: any = null
   if (root) {
-    treeLayout = layoutTree(root, 0, 80, 0, 0, 1, spacingX, spacingY)
+    treeLayout = layoutTree(root, 0, 80, 0, spacingX, spacingY)
     // Find bounds
     const bounds = getTreeBounds(treeLayout)
     const padding = 80
